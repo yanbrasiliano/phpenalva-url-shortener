@@ -56,9 +56,4 @@ Please follow these steps to contribute:
 ## License
 PHPenalva URL Shortener is released under the MIT License. See the `LICENSE` file for more details.
 
-## Contact
-- Author: Yan Brasiliano Silva Penalva
-- Email: [your-email@example.com](mailto:your-email@example.com)
-- Project Link: [https://github.com/your-username/phpenalva-url-shortener](https://github.com/your-username/phpenalva-url-shortener)
-
 Thank you for using PHPenalva URL Shortener!
