@@ -20,7 +20,10 @@
       "Models\\": "app/Models/",
       "Views\\": "app/Views/",
       "Routes\\": "routes/",
-      "Bootstrap\\": "bootstrap/"
+      "Bootstrap\\": "bootstrap/",
+      "Services\\": "app/Services/",
+      "Repositories\\": "app/Repositories/",
+      "Interfaces\\": "app/Interfaces/"
     }
   },
   "require": {

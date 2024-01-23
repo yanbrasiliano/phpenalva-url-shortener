@@ -9,11 +9,7 @@ class WelcomeController extends BaseController
 {
   use RestResponseTrait;
 
-  public function index()
-  {
-    $this->setPageTitle('Home');
-    $this->renderView('/System/layout');
-  }
+
 
   public function apiIndex()
   {
