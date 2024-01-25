@@ -1,6 +1,10 @@
 <?php
 
-class ShortenerUrlRepository
+namespace App\Repositories;
+
+use App\Interfaces\ShortenerUrlRepositoryInterface;
+
+class ShortenerUrlRepository implements ShortenerUrlRepositoryInterface
 {
   private $pdo;
 
@@ -11,19 +15,12 @@ class ShortenerUrlRepository
 
   public function create(array $data): array
   {
-    $sql = "INSERT INTO links (url, short_url) VALUES (:url, :short_url)";
+    $data['created_at'] = date('Y-m-d H:i:s');
+
+    $sql = "INSERT INTO links (short_code, url, created_at) VALUES (:short_url, :url, :created_at)";
     $stmt = $this->pdo->prepare($sql);
-    $stmt->execute($data);
+    $stmt->execute([':short_url' => $data['short_url'], ':url' => $data['url'], ':created_at' => $data['created_at']]);
 
     return $data;
-  }
-
-  public function findByShortUrl(string $shortUrl): array
-  {
-    $sql = "SELECT * FROM links WHERE short_url = :short_url";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->execute(['short_url' => $shortUrl]);
-
-    return $stmt->fetch();
   }
 }
