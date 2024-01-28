@@ -1,20 +1,24 @@
 # PHPenalva URL Shortener
 
 ## Overview
-PHPenalva URL Shortener is a simple, efficient tool built using the PHPenalva microframework. It allows users to easily shorten long URLs for easier sharing and management.
+PHPenalva URL Shortener is a simple yet efficient tool built using the PHPenalva microframework. It enables users to shorten lengthy URLs for easier sharing and management. This project integrates with the Ulvis API for URL shortening services.
 
 ### Features
-- User-friendly interface for URL shortening
-- Quick redirection to original URLs using shortened links
-- Built with PHPenalva, leveraging its simplicity and efficiency
+- User-friendly interface for easy URL shortening.
+- Quick redirection to original URLs using shortened links.
+- Integration with the Ulvis API for reliable URL shortening.
+- Built with PHPenalva, leveraging its simplicity and efficiency.
+
+## Integration with Ulvis API
+This project uses the [Ulvis API](https://ulvis.net/developer.html) to shorten URLs. The API provides a straightforward way to convert long URLs into more manageable shortened links, which are then stored in the application's database for redirection purposes.
 
 ## Installation
 
 ### Prerequisites
-- PHP 7.4 or higher
-- Web Server with URL rewriting (Apache, Nginx, IIS)
-- Database (MySQL, MariaDB, PostgreSQL, SQLite)
-- Composer
+- PHP 7.4 or higher.
+- Web Server with URL rewriting (Apache, Nginx, IIS).
+- Database (MySQL, MariaDB, PostgreSQL, SQLite).
+- Composer.
 
 ### Steps
 1. Clone the repository:
@@ -22,12 +26,10 @@ PHPenalva URL Shortener is a simple, efficient tool built using the PHPenalva mi
     git clone https://github.com/your-username/phpenalva-url-shortener.git
     ```
 2. Navigate to the project directory:
-
     ```bash
     cd phpenalva-url-shortener
     ```
 3. Install dependencies:
-
     ```bash
     composer install
     ```
@@ -36,9 +38,8 @@ PHPenalva URL Shortener is a simple, efficient tool built using the PHPenalva mi
    
 5. Copy the `.env.example` file and rename it to `.env`. Then, fill in the database credentials and the base URL of your application.
 
-
 ## Usage
-To start the URL Shortener:
+To start using the PHPenalva URL Shortener:
 1. Run your web server.
 2. Access the project via your web browser.
 3. Enter a URL in the input box and click 'Shorten' to receive a shortened URL.

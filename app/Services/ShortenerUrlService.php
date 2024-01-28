@@ -2,44 +2,67 @@
 
 namespace App\Services;
 
-use Core\BaseDatabase;
-use App\Repositories\ShortenerUrlRepository; // Add this line
+use App\Repositories\ShortenerUrlRepository;
 
 class ShortenerUrlService
 {
   private $repository;
-  protected $pdo;
 
-  public function __construct()
+  public function __construct(ShortenerUrlRepository $repository)
   {
-    $this->pdo = new BaseDatabase();
-    $this->repository = new ShortenerUrlRepository($this->pdo->getDatabase());
+    $this->repository = $repository;
   }
 
-
-  public function create(array $data): array
+  public function shortenUrl($url)
   {
-    $data['short_url'] = $this->generateShortUrl();
-    $data['url'] = $this->normalizeUrl($data['url']);
+    $shortUrlData = ShortenerUrlService::send(['url' => $url]);
 
-    return $this->repository->create($data);
-  }
 
-  private function generateShortUrl(): string
-  {
-    $shortUrl = substr(md5(uniqid(rand(), true)), 0, 6);
+    if (isset($shortUrlData['success']) && $shortUrlData['success']) {
+      $data = [
+        'short_url' => $shortUrlData['data']['url'],
+        'url' => $shortUrlData['data']['full'],
+        'created_at' => date('Y-m-d H:i:s')
+      ];
+      $this->repository->create($data);
 
-    return $shortUrl;
-  }
-
-  private function normalizeUrl(string $url): string
-  {
-    $url = trim($url);
-
-    if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
-      $url = "http://" . $url;
+      return $shortUrlData;
     }
 
-    return $url;
+    return 'Error: Unable to shorten URL';
+  }
+
+
+
+  private static function send($data = [])
+  {
+    $endpoint = 'https://ulvis.net/API/write/get?' . http_build_query($data);
+
+    $ch = curl_init();
+    curl_setopt_array($ch, [
+      CURLOPT_URL => $endpoint,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => [
+        'Content-Type: application/json',
+      ],
+    ]);
+
+    $response = curl_exec($ch);
+    if (curl_errno($ch)) {
+      echo "Erro do cURL: " . curl_error($ch);
+    }
+    curl_close($ch);
+
+    $responseData = json_decode($response, true);
+
+    if (!empty($responseData['success']) && !empty($responseData['data']['url'])) {
+      return $responseData;
+    } else {
+      return 'Error: Unable to shorten URL';
+    }
   }
 }

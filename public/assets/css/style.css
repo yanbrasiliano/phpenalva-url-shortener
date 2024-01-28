@@ -1,32 +1,52 @@
 @import "bootstrap";
 
 body {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 #logo {
-    width: 100%;
-    height: 100%;
-    display: block;
-    margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
 }
 
 #logo-name {
-    color: #fff;
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
 }
 
 #navbarNav {
-    margin-right: 50rem;
+  margin-right: 50rem;
 
 }
 
 #navbarNav ul li a {
-    color: #fff;
-    font-size: 1rem;
-    font-weight: bold;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

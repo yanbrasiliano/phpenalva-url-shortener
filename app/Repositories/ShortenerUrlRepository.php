@@ -15,9 +15,8 @@ class ShortenerUrlRepository implements ShortenerUrlRepositoryInterface
 
   public function create(array $data): array
   {
-    $data['created_at'] = date('Y-m-d H:i:s');
 
-    $sql = "INSERT INTO links (short_code, url, created_at) VALUES (:short_url, :url, :created_at)";
+    $sql = "INSERT INTO links (short_url, url, created_at) VALUES (:short_url, :url, :created_at)";
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute([':short_url' => $data['short_url'], ':url' => $data['url'], ':created_at' => $data['created_at']]);
 

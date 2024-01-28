@@ -13,6 +13,7 @@ class ShortenerUrlController extends BaseController
   use RestResponseTrait;
 
   private $shortenerUrlService;
+
   public function __construct()
   {
     $pdo = new BaseDatabase();
@@ -24,21 +25,11 @@ class ShortenerUrlController extends BaseController
   {
     $this->renderView('/Shortener/layout');
   }
-
   public function create($request)
   {
-    $contentType = $_SERVER["CONTENT_TYPE"] ?? '';
-    if (stripos($contentType, 'application/json') !== false) {
-      $data = json_decode(file_get_contents('php://input'), true);
-    } else {
-      $data = $_POST;
-    }
+    $url = $request->post->url;
+    $shortUrl = $this->shortenerUrlService->shortenUrl($url);
 
-    try {
-      $shortenedData = $this->shortenerUrlService->create($data);
-      return $this->successResponse($shortenedData);
-    } catch (\Exception $e) {
-      return $this->errorResponse($e->getMessage(), 500);
-    }
+    return $this->jsonResponse($shortUrl);
   }
 }
